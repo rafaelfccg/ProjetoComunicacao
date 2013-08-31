@@ -10,5 +10,11 @@ public class Jogador {
 	Jogador(int num){
 		this.num = num;
 	}
+	boolean joga(int index, boolean cima){
+		Peca peca = emMao.get(index);
+		boolean retorno = jogo.jogada(num, peca, cima);
+		if(retorno) emMao.remove(index);
+		return retorno;
+	}
 	
 }
