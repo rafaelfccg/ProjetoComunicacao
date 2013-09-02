@@ -76,6 +76,7 @@ public class Jogo {
 	
 	Jogo(Jogador[] jogadores){
 		jogador =jogadores;
+		int maiorCarroca =0;
 		pecas = new Vector<Peca>();
 		for(int i = 0; i<7;i++){
 			for(int j = i;j<7;j++){
@@ -90,9 +91,14 @@ public class Jogo {
 			Vector<Peca> mao =new Vector<Peca>();
 			for(int i = 0;i<6;i++){
 				mao.add(pecas.get(i+start));
+				if(pecas.get(i+start).num1 >= maiorCarroca && pecas.get(i+start).num1 == pecas.get(i+start).num2){
+					vez = joga;
+					maiorCarroca =pecas.get(i+start).num1; 
+				}
 			}
 			jogador[joga].emMao = mao;
 		}
+		
 	}
 	void shuffle(){
 	
