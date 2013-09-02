@@ -1,8 +1,10 @@
 package rede;
 
+import java.io.IOException;
+
 public interface IntComunicacao {
-	public void enviar(Object obj);
-	public Object receber();
-	public void conectar();
-	public void desconectar();
+	public void conectar() throws IOException;
+	public void desconectar() throws IOException;
+	public void enviar(Object obj) throws IOException;
+	public Object receber() throws IOException, ClassNotFoundException;
 }
