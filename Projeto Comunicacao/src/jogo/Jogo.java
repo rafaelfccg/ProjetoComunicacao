@@ -1,6 +1,7 @@
 package jogo;
 
 import java.util.Vector;
+import java.util.Collections;
 
 class Mesa{
 	Vector<Peca> em_mesa;
@@ -84,7 +85,7 @@ public class Jogo {
 				pecas.add(peca);
 			}
 		}
-		shuffle();
+		Collections.shuffle(pecas);
 		int start=0;
 		for(int joga=0; joga<4;joga++){
 			start = joga*6;
@@ -99,9 +100,6 @@ public class Jogo {
 			jogador[joga].emMao = mao;
 		}
 		
-	}
-	void shuffle(){
-	
 	}
 	boolean jogada(int player, Peca peca, boolean cima){
 		if(player!=vez) return false;
