@@ -1,6 +1,8 @@
 package jogo;
 
 public class Peca {
+	Peca prev;
+	Peca next;
 	int num1;
 	int num2;
 	int encaixe;// 1 se estiver em mesa com o num1 aberto, 2se estiver em mesa com num2 aberto

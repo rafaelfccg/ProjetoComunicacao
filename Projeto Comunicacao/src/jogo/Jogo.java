@@ -1,74 +1,7 @@
 package jogo;
-
 import java.util.Vector;
 import java.util.Collections;
 
-class Mesa{
-	Vector<Peca> em_mesa;
-	Mesa(){
-		em_mesa = new Vector<Peca>();
-	}
-	boolean jogar_cima(Peca p){
-		for(int i = em_mesa.size()-1; i>=0; i--){
-			if(em_mesa.get(i).identificador == 2){
-				int aux = em_mesa.get(i).encaixe;
-				if(aux == 1 && em_mesa.get(i).num1 == p.num1){
-					p.encaixe = 2;
-					p.identificador = 2;
-					em_mesa.add(p);
-					return true;
-				}else if(aux == 1 && em_mesa.get(i).num1 == p.num2){
-					p.encaixe = 1;
-					p.identificador = 2;
-					em_mesa.add(p);
-					return true;
-				}else if(aux == 2 && em_mesa.get(i).num2 == p.num1){
-					p.encaixe = 2;
-					p.identificador = 2;
-					em_mesa.add(p);
-					return true;
-				}else if(aux == 2 && em_mesa.get(i).num2 == p.num2){
-					p.encaixe = 1;
-					p.identificador = 2;
-					em_mesa.add(p);
-					return true;
-				}
-				
-			}
-		}
-		return false;
-	}
-	boolean jogar_baixo(Peca p){
-		for(int i = em_mesa.size()-1; i>=0; i--){
-			if(em_mesa.get(i).identificador == 3){
-				int aux = em_mesa.get(i).encaixe;
-				if(aux == 1 && em_mesa.get(i).num1 == p.num1){
-					p.encaixe = 2;
-					p.identificador = 3;
-					em_mesa.add(p);
-					return true;
-				}else if(aux == 1 && em_mesa.get(i).num1 == p.num2){
-					p.encaixe = 1;
-					p.identificador = 3;
-					em_mesa.add(p);
-					return true;
-				}else if(aux == 2 && em_mesa.get(i).num2 == p.num1){
-					p.encaixe = 2;
-					p.identificador = 3;
-					em_mesa.add(p);
-					return true;
-				}else if(aux == 2 && em_mesa.get(i).num2 == p.num2){
-					p.encaixe = 1;
-					p.identificador = 3;
-					em_mesa.add(p);
-					return true;
-				}
-				
-			}
-		}
-		return false;
-	}
-}
 public class Jogo {
 	Vector<Peca> pecas;
 	Jogador[] jogador;
@@ -85,8 +18,10 @@ public class Jogo {
 				pecas.add(peca);
 			}
 		}
+		
 		Collections.shuffle(pecas);
 		int start=0;
+		
 		for(int joga=0; joga<4;joga++){
 			start = joga*6;
 			Vector<Peca> mao =new Vector<Peca>();
@@ -98,9 +33,9 @@ public class Jogo {
 				}
 			}
 			jogador[joga].emMao = mao;
-		}
-		
+		}		
 	}
+	
 	boolean jogada(int player, Peca peca, boolean cima){
 		if(player!=vez) return false;
 		else{
@@ -110,7 +45,5 @@ public class Jogo {
 		vez++;
 		vez%=4;
 		return true;
-	}
-	
-	
+	}	
 }
