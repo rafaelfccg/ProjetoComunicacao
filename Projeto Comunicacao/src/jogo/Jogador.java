@@ -1,8 +1,13 @@
 package jogo;
 
+import java.io.Serializable;
 import java.util.Vector;
 
-public class Jogador {
+public class Jogador implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3965415346455078693L;
 	Vector<Peca> emMao;
 	private int num;
 	Jogo jogo;
@@ -10,10 +15,12 @@ public class Jogador {
 	Jogador(int num){
 		this.num = num;
 	}
-	boolean joga(int index, boolean cima){
+	boolean joga(int index, int jogada){ //cima: 0 = cima, 1 = baixo, 2 == toque
 		Peca peca = emMao.get(index);
-		boolean retorno = jogo.jogada(num, peca, cima);
-		if(retorno) emMao.remove(index);
+		boolean retorno = jogo.jogar(num, peca, jogada);
+		if (retorno) {
+			emMao.remove(index);
+		}
 		return retorno;
 	}
 	

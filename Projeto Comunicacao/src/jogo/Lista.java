@@ -1,6 +1,12 @@
 package jogo;
 
-public class Lista {
+import java.io.Serializable;
+
+public class Lista implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5021536319985479358L;
 	Peca head;
 	Peca tail;
 	Peca inicio;
