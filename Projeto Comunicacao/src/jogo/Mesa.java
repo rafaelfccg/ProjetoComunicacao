@@ -1,9 +1,12 @@
 package jogo;
 
-import java.util.Vector;
-import java.util.Collections;
+import java.io.Serializable;
 
-class Mesa{
+public class Mesa implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8590931278202855378L;
 	Lista mesa;
 	
 	public Mesa(){

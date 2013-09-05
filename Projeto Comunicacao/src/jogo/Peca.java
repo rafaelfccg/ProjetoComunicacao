@@ -1,6 +1,12 @@
 package jogo;
 
-public class Peca {
+import java.io.Serializable;
+
+public class Peca implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1247565935740083866L;
 	Peca prev;
 	Peca next;
 	int num1;
