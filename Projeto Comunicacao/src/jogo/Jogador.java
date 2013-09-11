@@ -12,16 +12,29 @@ public class Jogador implements Serializable{
 	private int num;
 	Jogo jogo;
 	
-	Jogador(int num){
+	public Jogador(int num){
 		this.num = num;
 	}
-	boolean joga(int index, int jogada){ //cima: 0 = cima, 1 = baixo, 2 == toque
+	public Vector<Peca> getEmMao() {
+		return emMao;
+	}
+	public void setEmMao(Vector<Peca> emMao) {
+		this.emMao = emMao;
+	}
+	public boolean joga(int index, int jogada){ //cima: 0 = cima, 1 = baixo, 2 == toque
 		Peca peca = emMao.get(index);
 		boolean retorno = jogo.jogar(num, peca, jogada);
 		if (retorno) {
 			emMao.remove(index);
 		}
 		return retorno;
+	}
+	public void print_hand(){
+		for(int i = 0; i<emMao.size();i++){
+			Peca aux = emMao.get(i);
+			System.out.print(aux.num1+"/"+aux.num2+" ; ");
+		}
+		System.out.println();
 	}
 	
 }

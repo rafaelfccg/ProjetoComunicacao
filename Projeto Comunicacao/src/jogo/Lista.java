@@ -37,5 +37,14 @@ public class Lista implements Serializable{
 			this.tail = peca;
 			++this.size;
 		}
-	}	
+	}
+	public void print_test(){
+		Peca aux = tail;
+		System.out.println(size);
+		do{
+			System.out.println(aux.num1+"/"+aux.num2);
+			aux = aux.next;
+		}while(aux != null);
+	
+	}
 }

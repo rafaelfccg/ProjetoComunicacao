@@ -12,68 +12,94 @@ public class Mesa implements Serializable{
 	public Mesa(){
 		mesa = new Lista();
 	}
-	
+	public void print_test(){
+		mesa.print_test();
+	}
 	boolean jogar_cima(Peca p){
-			if(mesa.head.identificador == 2){
+		if(mesa.inicio == null){
+			p.identificador =1;
+			p.encaixe=3;
+			mesa.inserir(p);
+			return true;
+		}
+		//System.out.println("chegou aqui");
+			//if(mesa.head.identificador == 2 || mesa.head.identificador == 1){
 				int aux = mesa.head.encaixe;
-				if (aux == 1 && mesa.head.num1 == p.num1) {
+				//System.out.println(aux);
+				//System.out.println(mesa.head.num1+"/"+mesa.head.num2);
+				//System.out.println(p.num1+"/"+p.num2);
+				if ((aux == 1||aux == 3) && mesa.head.num1 == p.num1) {
 					p.encaixe = 2;
 					p.identificador = 2;
 					mesa.inserir(p);
+					mesa.head.encaixe = 2;
 					return true;
 				}
-				else if (aux == 1 && mesa.head.num1 == p.num2) {
+				else if ((aux == 1||aux == 3) && mesa.head.num1 == p.num2) {
 					p.encaixe = 1;
 					p.identificador = 2;
 					mesa.inserir(p);
+					mesa.head.encaixe = 1;
 					return true;
 				}
-				else if (aux == 2 && mesa.head.num2 == p.num1) {
+				else if ((aux == 2||aux == 3) && mesa.head.num2 == p.num1) {
 					p.encaixe = 2;
 					p.identificador = 2;
 					mesa.inserir(p);
+					mesa.head.encaixe = 2;
 					return true;
 				}
-				else if (aux == 2 && mesa.head.num2 == p.num2) {
+				else if ((aux == 2 ||aux == 3)&& mesa.head.num2 == p.num2) {
 					p.encaixe = 1;
 					p.identificador = 2;
 					mesa.inserir(p);
+					mesa.head.encaixe = 1;
+					return true;
 				}				
-			}
+		//	}
 		return false;
 	}
 	
 	boolean jogar_baixo(Peca p){
-		
-			if(mesa.tail.identificador == 3){
+		if(mesa.inicio == null){
+			p.identificador =1;
+			mesa.inserir(p);
+			p.encaixe = 3;
+			return true;
+		}
+	//		if(mesa.tail.identificador == 3 || mesa.tail.identificador == 1){
 				
 				int aux = mesa.tail.encaixe;
 				
-				if (aux == 1 && mesa.tail.num1 == p.num1) {
+				if ((aux == 1 ||aux == 3) && mesa.tail.num1 == p.num1) {
 					p.encaixe = 2;
 					p.identificador = 3;
 					mesa.inserir(p);
+					mesa.tail.encaixe = 2;
 					return true;
 				}
-				else if(aux == 1 && mesa.tail.num1 == p.num2) {
+				else if((aux == 1 ||aux == 3) && mesa.tail.num1 == p.num2) {
 					p.encaixe = 1;
 					p.identificador = 3;
 					mesa.inserir(p);
+					mesa.tail.encaixe = 1;
 					return true;
 				}
-				else if(aux == 2 && mesa.tail.num2 == p.num1) {
+				else if((aux == 2 ||aux == 3) && mesa.tail.num2 == p.num1) {
 					p.encaixe = 2;
 					p.identificador = 3;
 					mesa.inserir(p);
+					mesa.tail.encaixe = 2;
 					return true;
 				}
-				else if(aux == 2 && mesa.tail.num2 == p.num2) {
+				else if((aux == 2 ||aux == 3)&& mesa.tail.num2 == p.num2) {
 					p.encaixe = 1;
 					p.identificador = 3;
 					mesa.inserir(p);
+					mesa.tail.encaixe = 1;
 					return true;
 				}				
-			}
+		//	}
 		return false;
 	}
 }
