@@ -23,7 +23,34 @@ public class Jogador implements Serializable{
 	}
 	public boolean joga(int index, int jogada){ //cima: 0 = cima, 1 = baixo, 2 == toque
 		Peca peca = emMao.get(index);
-		boolean retorno = jogo.jogar(num, peca, jogada);
+		Peca aux, aux2;
+		int encaixe1 = -1;
+		int encaixe2 = -1;
+		boolean retorno =true;
+		if(jogada == 2){
+			aux = jogo.mesa.mesa.head;
+			aux2 = jogo.mesa.mesa.tail;
+			encaixe1 = aux.encaixe;
+			encaixe2 = aux2.encaixe;
+			if(encaixe1 == 1){
+				encaixe1 = aux.num1;
+			}else{
+				encaixe1 = aux.num2;
+			}
+			if(encaixe2 == 1){
+				encaixe2 = aux2.num1;
+			}else{
+				encaixe2 = aux2.num2;
+			}//System.out.println("Encixes :" +encaixe1+ " e "+encaixe2);
+			for(int i = 0; i<emMao.size(); i++){
+				//System.out.println(emMao.get(i).num1 +" - "+ emMao.get(i).num2);
+				retorno = retorno && !(emMao.get(i).num1 == encaixe1 || emMao.get(i).num1 == encaixe2 || emMao.get(i).num2 == encaixe2 || emMao.get(i).num2 == encaixe1);
+				//System.out.println((emMao.get(i).num1 == encaixe1 || emMao.get(i).num1 == encaixe2 || emMao.get(i).num2 == encaixe2 || emMao.get(i).num2 == encaixe1));
+			}
+		}
+		if(!retorno) return retorno;
+		retorno = jogo.jogar(num, peca, jogada);
+		//System.out.println(retorno);
 		if (retorno) {
 			emMao.remove(index);
 		}

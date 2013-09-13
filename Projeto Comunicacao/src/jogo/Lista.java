@@ -41,10 +41,10 @@ public class Lista implements Serializable{
 	public void print_test(){
 		Peca aux = tail;
 		System.out.println(size);
-		do{
+		for(int i = 0; i<size; i++){
 			System.out.println(aux.num1+"/"+aux.num2);
 			aux = aux.next;
-		}while(aux != null);
+		}
 	
 	}
 }

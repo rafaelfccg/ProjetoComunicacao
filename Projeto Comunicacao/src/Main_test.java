@@ -24,18 +24,21 @@ public class Main_test {
 				System.out.println("Sua mao:"); // Servidor envia mao e mesa para os clientes
 				jogs[vez].print_hand();
 				boolean b;
+				int index = 0;
 				do{// repete enquanto a jogada for invalida // Jogador manda a peça que ele deseja jogar e o lugar para o servidor
 					System.out.println(jogo.getVez());
-					System.out.println("Digite o 0 para jogar em cima, 1 para jogar em baixo e 2 para tocar");
+					System.out.println("Digite o 0 para jogar em baixo, 1 para jogar em cima e 2 para tocar");
 					int lado = in.nextInt();// escolhe lado da mesa ou toca
 					if(lado ==2){ 
 						b = jogs[vez].joga(0, lado);
+						if(!b) System.out.println("Voce tem peças para jogar");
 					}else{
 						System.out.println("digite o inidice da peca que deseja jogar:");// escolhe a peca
-						int index = in.nextInt();
-						b  = jogs[vez].joga(index, lado);
+						index = in.nextInt();
+						b  = jogs[vez].joga(index, lado);	
 						if(!b)System.out.println( "Jogada invalida "+jogs[vez].getEmMao().get(index).getNum1() +"/ "+jogs[vez].getEmMao().get(index).getNum2() );
 					}
+					
 				}while(!b);
 				
 				jogo.getMesa().print_test();// imprime a mesa

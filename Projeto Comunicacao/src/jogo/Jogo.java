@@ -119,48 +119,67 @@ public class Jogo implements Serializable{
 			if(jogada == 0) {
 				//System.out.println(peca.num1);
 				aux = mesa.jogar_cima(peca);
+				cont_tocs = 0;
 			}
 			else if (jogada == 1) {
 				aux = mesa.jogar_baixo(peca);
+				cont_tocs  = 0;
 			}else if(jogada == 2){
-				// mamao verifica se o toque é válido.
-				
 				if(aux) cont_tocs++;
 			}
 		}
 		if(aux){
+			if(jogada!=2){
+				last_played = peca;
+				cont_tocs = 0;
+			}
+			
 			++vez;
 			vez%=4;
 		}
 		return aux;
 	}	
 	public void verify(){
-		if(cont_tocs ==4) reset();
+		if(cont_tocs == 4){
+			reset();
+			return;
+		}
+		int aux = -1;
 		for(int i = 0; i<4;i++){
 			if(jogador[i].emMao.size() == 0){
+				aux = i;
 				int points = 1;
 				int encaixe = last_played.encaixe;
 				if(last_played.num1 == last_played.num2) points++;
 				if(last_played.identificador == 2){
 					if(encaixe ==1 && mesa.mesa.tail.encaixe==1 && last_played.num1==mesa.mesa.tail.num1) points+=2;
-					if(encaixe ==1 && mesa.mesa.tail.encaixe==2 && last_played.num1==mesa.mesa.tail.num2) points+=2;
-					if(encaixe ==2 && mesa.mesa.tail.encaixe==1 && last_played.num2==mesa.mesa.tail.num1) points+=2;
-					if(encaixe ==2 && mesa.mesa.tail.encaixe==2 && last_played.num2==mesa.mesa.tail.num2) points+=2;
+					else if(encaixe ==1 && mesa.mesa.tail.encaixe==2 && last_played.num1==mesa.mesa.tail.num2) points+=2;
+					else if(encaixe ==2 && mesa.mesa.tail.encaixe==1 && last_played.num2==mesa.mesa.tail.num1) points+=2;
+					else if(encaixe ==2 && mesa.mesa.tail.encaixe==2 && last_played.num2==mesa.mesa.tail.num2) points+=2;
 				}else if(last_played.identificador == 3){
 					if(encaixe ==1 && mesa.mesa.head.encaixe==1 && last_played.num1==mesa.mesa.head.num1) points+=2;
-					if(encaixe ==1 && mesa.mesa.head.encaixe==2 && last_played.num1==mesa.mesa.head.num2) points+=2;
-					if(encaixe ==2 && mesa.mesa.head.encaixe==1 && last_played.num2==mesa.mesa.head.num1) points+=2;
-					if(encaixe ==2 && mesa.mesa.head.encaixe==2 && last_played.num2==mesa.mesa.head.num2) points+=2;
+					else if(encaixe ==1 && mesa.mesa.head.encaixe==2 && last_played.num1==mesa.mesa.head.num2) points+=2;
+					else if(encaixe ==2 && mesa.mesa.head.encaixe==1 && last_played.num2==mesa.mesa.head.num1) points+=2;
+					else if(encaixe ==2 && mesa.mesa.head.encaixe==2 && last_played.num2==mesa.mesa.head.num2) points+=2;
 				}
 				if(i%2==0)points_a+=points;
 				else points_b+=points;
 				break;
 			}
 		}
-		if(points_a<7 && points_b<7) reset();
+		if(points_a<7 && points_b<7 && aux !=-1){
+			reset();
+			System.out.println("Pontos_a: " +points_a);
+			System.out.println("Pontos_b: " +points_b);
+		}else{
+			if(points_a >=7)System.out.println("Time A ganhou");
+			if(points_b >=7)System.out.println("Time B ganhou");
+		}
 	}
 	void reset(){
+		System.out.println("JOGO TRANCADO - Reinicia jogo");
 		int maiorCarroca = 0;
+		cont_tocs = 0;
 		pecas = new Vector<Peca>();
 		mesa = new Mesa();
 		for(int i = 0; i < 7; ++i){
