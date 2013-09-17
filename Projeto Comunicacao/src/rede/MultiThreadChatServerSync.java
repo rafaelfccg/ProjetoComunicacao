@@ -164,7 +164,7 @@ class clientThread extends Thread {
 			boolean cabou = false;
 			//int indice,jogada;
 				
-				
+				jogo.save();
 				int vez = jogo.getVez();
 				String mesa = jogo.getMesa().print_test();// impressao de test
 				for(int i = 0;i<4;++i){
