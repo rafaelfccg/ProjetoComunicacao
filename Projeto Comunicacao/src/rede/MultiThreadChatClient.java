@@ -117,7 +117,7 @@ public class MultiThreadChatClient implements Runnable {
 		 * server. Once we received that then we want to break.
 		 */
 		Object responseObject;
-		String responseLine = "",mesa,mao,vez;
+		String responseLine = "",mesa,mao,vez, info, points_a = "0",points_b="0";
 		int num;
 		boolean b = false;
 		try {
@@ -158,6 +158,23 @@ public class MultiThreadChatClient implements Runnable {
 					System.out.println("Espere sua vez seu merda sem mãe");
 				}
 				}while(!b);
+				mesa = (String) is.readObject();
+				System.out.println(mesa);
+				info = (String) is.readObject();
+				if(info.equals("1")){
+					points_a = (String) is.readObject();
+					points_b = (String) is.readObject();
+					System.out.println("Fim de rodada");
+					System.out.println("Equipe A:"+points_a);
+					System.out.println("Equipe B:"+points_b);
+				}else if(info.equals("2")){
+					System.out.println("Acabou pai!");
+					if(Integer.parseInt(points_a)>Integer.parseInt(points_b)){
+						System.out.println("Time A ganhou");
+					}else{
+						System.out.println("Time B ganhou");
+					}
+				}
 				//System.out.println();
 				/*if (responseLine.indexOf("*** Bye") != -1)
 					break;*/

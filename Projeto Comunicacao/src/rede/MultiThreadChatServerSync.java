@@ -208,7 +208,7 @@ class clientThread extends Thread {
 						}
 						
 					}while(!b);
-					
+					jogo.save();
 					mesa = jogo.getMesa().print_test();// imprime a mesa
 					
 					for(int i = 0;i<4;++i){
