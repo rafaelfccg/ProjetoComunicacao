@@ -38,13 +38,13 @@ public class Lista implements Serializable{
 			++this.size;
 		}
 	}
-	public void print_test(){
+	public String print_test(){
 		Peca aux = tail;
-		System.out.println(size);
+		String retorno= "";
 		for(int i = 0; i<size; i++){
-			System.out.println(aux.num1+"/"+aux.num2);
+			retorno = retorno +(aux.num1+"/"+aux.num2);
 			aux = aux.next;
 		}
-	
+		return retorno;
 	}
 }
