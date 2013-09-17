@@ -12,8 +12,8 @@ public class Mesa implements Serializable{
 	public Mesa(){
 		mesa = new Lista();
 	}
-	public void print_test(){
-		mesa.print_test();
+	public String print_test(){
+		return mesa.print_test();
 	}
 	boolean jogar_cima(Peca p){
 		if(mesa.inicio == null){

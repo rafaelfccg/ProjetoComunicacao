@@ -56,12 +56,14 @@ public class Jogador implements Serializable{
 		}
 		return retorno;
 	}
-	public void print_hand(){
+	public String print_hand(){
+		String retorno = "";
 		for(int i = 0; i<emMao.size();i++){
 			Peca aux = emMao.get(i);
-			System.out.print(aux.num1+"/"+aux.num2+" ; ");
+			retorno += aux.num1+"/"+aux.num2+" ; ";
 		}
-		System.out.println();
+		retorno +="\n";
+		return retorno;
 	}
 	
 }

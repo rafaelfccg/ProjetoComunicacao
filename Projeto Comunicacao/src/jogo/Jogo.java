@@ -139,10 +139,10 @@ public class Jogo implements Serializable{
 		}
 		return aux;
 	}	
-	public void verify(){
+	public int verify(){ // 0 - nada importante, 1- acabou uma rodada, 2- acabou o jogo.
 		if(cont_tocs == 4){
 			reset();
-			return;
+			return 1;
 		}
 		int aux = -1;
 		for(int i = 0; i<4;i++){
@@ -167,14 +167,19 @@ public class Jogo implements Serializable{
 				break;
 			}
 		}
+		
 		if(points_a<7 && points_b<7 && aux !=-1){
 			reset();
 			System.out.println("Pontos_a: " +points_a);
 			System.out.println("Pontos_b: " +points_b);
+			return 1;
 		}else{
+			if(aux == -1) return 0;
 			if(points_a >=7)System.out.println("Time A ganhou");
 			if(points_b >=7)System.out.println("Time B ganhou");
+			return 2;
 		}
+
 	}
 	void reset(){
 		System.out.println("JOGO TRANCADO - Reinicia jogo");
