@@ -24,12 +24,13 @@ public class MultiThreadChatClient implements Runnable {
 	//private static BufferedReader inputLine = null;
 	private static boolean closed = false;
 	
-	static Jogador jogador;
+	/*static Jogador jogador;
 	static Jogo jogo;
 	static int vez;
 	static boolean primeiro = true;
-	static boolean sair = false;
-	
+	static boolean sair = false;*/
+	static int numJogador;
+	static Scanner in = new Scanner(System.in);
 	/*
 	 * Le toda rodada as pecas dele e as da mesa
 	 * inteiro pra vez (mod 4)
@@ -40,10 +41,10 @@ public class MultiThreadChatClient implements Runnable {
 		int portNumber = 2222;
 		// The default host.
 		String host = "localhost";
-		Scanner in = new Scanner(System.in);
+		/*Scanner in = new Scanner(System.in);
 		System.out.println("Digite o seu id:");
 		vez = in.nextInt();
-		jogador = new Jogador(vez);
+		jogador = new Jogador(vez);*/
 		if (args.length < 2) {
 			System.out
 			.println("Usage: java MultiThreadChatClient <host> <portNumber>\n"
@@ -116,16 +117,47 @@ public class MultiThreadChatClient implements Runnable {
 		 * server. Once we received that then we want to break.
 		 */
 		Object responseObject;
-		String responseLine = "";
+		String responseLine = "",mesa,mao,vez;
+		int num;
+		boolean b = false;
 		try {
-			while ((responseObject = is.readObject()) != null) {
-				if(responseObject instanceof Jogo){
-					jogo = (Jogo) responseObject;
+			num = (int) is.readObject();
+			numJogador = num;
+			mesa = (String) is.readObject();
+			System.out.println(mesa);
+			while(true){
+			//while ((responseObject = is.readObject()) != null) {
+				mao = (String) is.readObject();
+				System.out.println(mao);
+				vez = (String) is.readObject();
+				System.out.println(vez);
+				int vez_int  = Integer.parseInt(vez);
+				do{
+				if(vez_int == numJogador){
+					String textinho = (String)is.readObject();
+					System.out.println(textinho);
+					int jogada = in.nextInt();
+					if(jogada ==2){
+						b = (boolean)is.readObject();
+						if(!b){
+							textinho = (String)is.readObject();
+							System.out.println(textinho);
+						}
+					}else{
+						textinho = (String) is.readObject();
+						System.out.println(textinho);
+						os.writeObject(in.nextInt());
+						b = (boolean) is.readObject();
+						if(!b){
+							textinho = (String) is.readObject();
+							System.out.println(textinho);
+						}
+					}
 					
+				}else{
+					System.out.println("Espere sua vez seu merda sem mãe");
 				}
-				else if(responseObject instanceof String)
-					responseLine = (String) responseObject;
-				
+				}while(!b);
 				//System.out.println();
 				/*if (responseLine.indexOf("*** Bye") != -1)
 					break;*/

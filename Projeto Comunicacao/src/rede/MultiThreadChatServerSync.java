@@ -21,11 +21,14 @@ public class MultiThreadChatServerSync {
 	private static ServerSocket serverSocket = null;
 	// The client socket.
 	private static Socket clientSocket = null;
-
+	
 	// This chat server can accept up to maxClientsCount clients' connections.
 	private static final int maxClientsCount = 10;
 	private static final clientThread[] threads = new clientThread[maxClientsCount];
 	private static int numClientes = 0;
+	
+	static Jogo jogo;
+	static Jogador[] jogadores = new Jogador[4];
 	public static void main(String args[]) {
 
 		// The default port number.
@@ -51,13 +54,23 @@ public class MultiThreadChatServerSync {
 		 * Create a client socket for each connection and pass it to a new client
 		 * thread.
 		 */
+		jogadores[0] = new Jogador(0);
+		jogadores[1] = new Jogador(1);
+		jogadores[2] = new Jogador(2);
+		jogadores[3] = new Jogador(3);
+		try {
+			jogo = new Jogo(jogadores);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		while (true) {
 			try {
 				clientSocket = serverSocket.accept();
 				int i = 0;
 				for (i = 0; i < maxClientsCount; i++) {
 					if (threads[i] == null) {
-						(threads[i] = new clientThread(clientSocket, threads)).start();
+						(threads[i] = new clientThread(clientSocket, threads, jogo, jogadores)).start();
 						numClientes++;
 						break;
 					}
@@ -68,6 +81,8 @@ public class MultiThreadChatServerSync {
 					os.close();
 					clientSocket.close();
 				}
+				
+				
 			} catch (IOException e) {
 				System.out.println(e);
 			}
@@ -92,25 +107,21 @@ class clientThread extends Thread {
 	private Socket clientSocket = null;
 	private final clientThread[] threads;
 	private int maxClientsCount;
-	Jogo jogo;
-	Jogador[] jogadores = new Jogador[4];
 	boolean comecou = false;
-	public clientThread(Socket clientSocket, clientThread[] threads) {
+	Jogo jogo;
+	Jogador[] jogadores;
+	public clientThread(Socket clientSocket, clientThread[] threads, Jogo jogo, Jogador[] jogadores) {
 		this.clientSocket = clientSocket;
 		this.threads = threads;
 		maxClientsCount = threads.length;
+		this.jogo = jogo;
+		this.jogadores = jogadores;
 	}
 	/*
 	 * Le toda rodada as pecas dele e as da mesa
 	 * Pegar o IP dos jogadores que entrarem
 	 * Trocar o nome da String pra concatenar os IPs
 	 */
-	public boolean isFull(){
-		for(int i = 0;i<4;++i){
-			if(jogadores[i]==null)return false;
-		}
-		return true;
-	}
 	public void run() {
 		int maxClientsCount = this.maxClientsCount;
 		clientThread[] threads = this.threads;
@@ -121,7 +132,7 @@ class clientThread extends Thread {
 			 */
 			is = new ObjectInputStream(clientSocket.getInputStream());
 			os = new ObjectOutputStream(clientSocket.getOutputStream());
-			String name = "oi";
+			//String name = "oi";
 			/*while (true) {
 				os.writeObject("Enter your name.");
 				name = (String) is.readObject();
@@ -150,9 +161,72 @@ class clientThread extends Thread {
 				}
 			}*/
 			/* Start the conversation. */
-			while (true) {
-				Object o = is.readObject();
-				if(o instanceof Jogo){
+			boolean cabou = false;
+			//int indice,jogada;
+				
+				
+				int vez = jogo.getVez();
+				String mesa = jogo.getMesa().print_test();// impressao de test
+				for(int i = 0;i<4;++i){
+					threads[i].os.writeObject(new Integer(i));
+					threads[i].os.writeObject(mesa);
+				}
+				while(jogo.getPoints_a() < 7 && jogo.getPoints_b() < 7){// enquanto ninguem ganhar o jogo
+					vez = jogo.getVez();
+					// Servidor envia mao e mesa para os clientes
+					String hand_jogador0  = jogadores[0].print_hand();//mandar pra 0
+					threads[0].os.writeObject(hand_jogador0);
+					String hand_jogador1  = jogadores[1].print_hand();
+					threads[1].os.writeObject(hand_jogador1);
+					String hand_jogador2  = jogadores[2].print_hand();
+					threads[2].os.writeObject(hand_jogador2);
+					String hand_jogador3  = jogadores[3].print_hand();
+					threads[3].os.writeObject(hand_jogador3);
+					for(int i = 0;i<4;++i){//mandar a vez pra todo mundo
+						threads[i].os.writeObject(vez+"");
+					}
+					boolean b;
+					int index = 0;
+					// envia a de quem é a vez para todos os jogadores e a respectiva mao de todos.
+					/**/
+					do{// repete enquanto a jogada for invalida // Jogador manda a peça que ele deseja jogar e o lugar para o servidor
+						// envia para o jogador da vez textos abaixo
+						// e recebe algo no lugar dos inputs
+						threads[vez].os.writeObject("Digite o 0 para jogar em baixo, 1 para jogar em cima e 2 para tocar");
+						//int lado = in.nextInt();// escolhe lado da mesa ou toca
+						int lado = (int)threads[vez].is.readObject();
+						if(lado ==2){ 
+							b = jogadores[vez].joga(0, lado);
+							threads[vez].os.writeObject(b);
+							if(!b) threads[vez].os.writeObject("Voce tem peças para jogar");
+						}else{
+							threads[vez].os.writeObject("digite o indice da peca que deseja jogar:");// escolhe a peca
+							index = (int) threads[vez].is.readObject();
+							b  = jogadores[vez].joga(index, lado);	
+							threads[vez].os.writeObject(b);
+							if(!b)threads[vez].os.writeObject( "Jogada invalida "+jogadores[vez].getEmMao().get(index).getNum1() +"/ "+jogadores[vez].getEmMao().get(index).getNum2() );
+						}
+						
+					}while(!b);
+					
+					mesa = jogo.getMesa().print_test();// imprime a mesa
+					
+					for(int i = 0;i<4;++i){
+						threads[i].os.writeObject(mesa);
+					}
+					
+					int info = jogo.verify();// verifica fim de jogo servidor verifica fim do jogo
+					for(int i = 0;i<4;++i){
+						threads[i].os.writeObject(info+"");
+					}
+					if(info == 1){
+						for(int i = 0;i<4;++i){						
+							threads[i].os.writeObject(jogo.getPoints_a()+"");
+							threads[i].os.writeObject(jogo.getPoints_b()+"");
+						}
+					}
+				}
+				/*if(o instanceof Jogo){
 					this.jogo = (Jogo) o;
 				}
 				else if(o instanceof Jogador){
@@ -165,7 +239,7 @@ class clientThread extends Thread {
 				if(isFull() && !comecou){
 					comecou = true;
 					jogo = new Jogo(jogadores);
-				}
+				}*/
 				/*if (line.startsWith("/quit")) {
 					break;
 				}*/
@@ -195,15 +269,15 @@ class clientThread extends Thread {
 					}
 				} else {*/
 					/* The message is public, broadcast it to all other clients. */
-					synchronized (this) {
-						for (int i = 0; i < maxClientsCount && isFull(); i++) {
+					/*synchronized (this) {
+						for (int i = 0; i < maxClientsCount; i++) {
 							if (threads[i] != null && threads[i].clientName != null) {
 								threads[i].os.writeObject(this.jogo);
 							}
 						}
-					}
+					}*/
 				//}
-			}
+			
 			/*synchronized (this) {
 				for (int i = 0; i < maxClientsCount; i++) {
 					if (threads[i] != null && threads[i] != this
@@ -219,13 +293,13 @@ class clientThread extends Thread {
 			 * Clean up. Set the current thread variable to null so that a new client
 			 * could be accepted by the server.
 			 */
-			synchronized (this) {
+			/*synchronized (this) {
 				for (int i = 0; i < maxClientsCount; i++) {
 					if (threads[i] == this) {
 						threads[i] = null;
 					}
 				}
-			}
+			}*/
 			/*
 			 * Close the output stream, close the input stream, close the socket.
 			 */
