@@ -14,23 +14,16 @@ import jogo.*;
  * */
 public class MultiThreadChatClient implements Runnable {
 
-	// The client socket
 	private static Socket clientSocket = null;
-	// The output stream
 	private static ObjectOutputStream os = null;
-	// The input stream
 	private static ObjectInputStream is = null;
 
 	//private static BufferedReader inputLine = null;
 	private static boolean closed = false;
-	
-	/*static Jogador jogador;
-	static Jogo jogo;
-	static int vez;
-	static boolean primeiro = true;
-	static boolean sair = false;*/
+
 	static int numJogador;
 	static Scanner in = new Scanner(System.in);
+	static Jogo jogo;
 	/*
 	 * Le toda rodada as pecas dele e as da mesa
 	 * inteiro pra vez (mod 4)
@@ -40,11 +33,7 @@ public class MultiThreadChatClient implements Runnable {
 		// The default port.
 		int portNumber = 2222;
 		// The default host.
-		String host = "localhost";
-		/*Scanner in = new Scanner(System.in);
-		System.out.println("Digite o seu id:");
-		vez = in.nextInt();
-		jogador = new Jogador(vez);*/
+		String host = "192.168.0.176";
 		if (args.length < 2) {
 			System.out
 			.println("Usage: java MultiThreadChatClient <host> <portNumber>\n"
@@ -61,7 +50,9 @@ public class MultiThreadChatClient implements Runnable {
 			clientSocket = new Socket(host, portNumber);
 			//inputLine = new BufferedReader(new InputStreamReader(System.in));
 			os = new ObjectOutputStream(clientSocket.getOutputStream());
+			//os.flush();
 			is = new ObjectInputStream(clientSocket.getInputStream());
+			//is.reset();
 		} catch (UnknownHostException e) {
 			System.err.println("Don't know about host " + host);
 		} catch (IOException e) {
@@ -80,19 +71,7 @@ public class MultiThreadChatClient implements Runnable {
 				new Thread(new MultiThreadChatClient()).start();
 				//String toServer = " ";
 				while (!closed) {
-					//le do teclado pra mandar pro servidor (inputline)
-					//toServer = inputLine.readLine().trim();
-					//os.println(toServer);
-					//ESCREVER OBJETO
-					if(sair){
-						os.writeObject("sair");
-					}
-					else if(primeiro){
-						os.writeObject(jogador);
-						primeiro = false;
-						os.writeObject(new Integer(vez));
-					}
-					else os.writeObject(jogo);
+					
 				}
 				/*
 				 * Close the output stream, close the input stream, close the socket.
@@ -112,79 +91,56 @@ public class MultiThreadChatClient implements Runnable {
 	 * @see java.lang.Runnable#run()
 	 */
 	public void run() {
-		/*
-		 * Keep on reading from the socket till we receive "Bye" from the
-		 * server. Once we received that then we want to break.
-		 */
-		Object responseObject;
-		String responseLine = "",mesa,mao,vez, info, points_a = "0",points_b="0";
-		int num;
-		boolean b = false;
 		try {
-			num = (int) is.readObject();
-			numJogador = num;
-			mesa = (String) is.readObject();
-			System.out.println(mesa);
-			while(true){
-			//while ((responseObject = is.readObject()) != null) {
-				mao = (String) is.readObject();
-				System.out.println(mao);
-				vez = (String) is.readObject();
-				System.out.println(vez);
-				int vez_int  = Integer.parseInt(vez);
-				do{
-				if(vez_int == numJogador){
-					String textinho = (String)is.readObject();
-					System.out.println(textinho);
-					int jogada = in.nextInt();
-					if(jogada ==2){
-						b = (boolean)is.readObject();
-						if(!b){
-							textinho = (String)is.readObject();
-							System.out.println(textinho);
+			System.out.println("available: "+is.available());
+			numJogador = is.readInt();
+			System.out.println(numJogador);
+			jogo = (Jogo) is.readObject();
+			System.out.println("Recebi a porra do jogo");
+			boolean b = true;
+			while(jogo.verify() != 2 ){
+				System.out.println(jogo.getMesa().print_test());
+				System.out.println("vez: "+jogo.getVez() + " numJogador: " + numJogador);
+				if(jogo.getVez() == numJogador){
+					System.out.println(jogo.getJogador(jogo.getVez()).print_hand());
+					// faz a jogada		
+					do{
+						System.out.println("Digite o 0 para jogar em baixo, 1 para jogar em cima e 2 para tocar");
+						int lado = in.nextInt();// escolhe lado da mesa ou toca
+						int index;
+						if(lado==2)index = 0;
+						else{
+							System.out.println("Digite o index da peca que você deseja jogar");
+							index = in.nextInt();
 						}
-					}else{
-						textinho = (String) is.readObject();
-						System.out.println(textinho);
-						os.writeObject(in.nextInt());
-						b = (boolean) is.readObject();
-						if(!b){
-							textinho = (String) is.readObject();
-							System.out.println(textinho);
-						}
-					}
-					
-				}else{
-					System.out.println("Espere sua vez seu merda sem mãe");
-				}
-				}while(!b);
-				mesa = (String) is.readObject();
-				System.out.println(mesa);
-				info = (String) is.readObject();
-				if(info.equals("1")){
-					points_a = (String) is.readObject();
-					points_b = (String) is.readObject();
-					System.out.println("Fim de rodada");
-					System.out.println("Equipe A:"+points_a);
-					System.out.println("Equipe B:"+points_b);
-				}else if(info.equals("2")){
-					System.out.println("Acabou pai!");
-					if(Integer.parseInt(points_a)>Integer.parseInt(points_b)){
-						System.out.println("Time A ganhou");
-					}else{
-						System.out.println("Time B ganhou");
-					}
-				}
-				//System.out.println();
-				/*if (responseLine.indexOf("*** Bye") != -1)
-					break;*/
+						b = jogo.getJogador(numJogador).joga(index, lado);
+						if(!b) System.out.println("Jogada inváida");
+					}while(!b);
+					System.out.println("joguei");
+					//jogo.jogar(player, peca, jogada);
+					os.writeObject(jogo);
+				}				
+				jogo = (Jogo)is.readObject();				
 			}
-			//closed = true;
-		} catch (IOException e) {
-			System.err.println("IOException:  " + e);
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+		} catch (ClassNotFoundException | IOException e) {
+			// TODO Auto-generated catch blocks
 			e.printStackTrace();
 		}
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

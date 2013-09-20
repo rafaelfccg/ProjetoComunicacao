@@ -25,6 +25,14 @@ public class Jogo implements Serializable{
 	Peca last_played;
 	int cont_tocs;
 	
+	public Jogador getJogador(int jogadorDaVez) {
+		return jogador[jogadorDaVez];
+	}
+
+	public void setJogador(Jogador[] jogador) {
+		this.jogador = jogador;
+	}
+
 	public int getPoints_a() {
 		return points_a;
 	}
@@ -108,7 +116,7 @@ public class Jogo implements Serializable{
 			System.out.println(aux.num1+"/"+aux.num2);
 		}
 	}
-	boolean jogar(int player, Peca peca, int jogada){
+	public boolean jogar(int player, Peca peca, int jogada){
 		//jogada: 0 == cima, 1 == baixo, 2 == toque
 		boolean aux = true ;
 		if(player != vez) {

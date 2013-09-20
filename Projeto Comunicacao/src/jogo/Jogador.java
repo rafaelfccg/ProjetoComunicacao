@@ -51,7 +51,7 @@ public class Jogador implements Serializable{
 		if(!retorno) return retorno;
 		retorno = jogo.jogar(num, peca, jogada);
 		//System.out.println(retorno);
-		if (retorno) {
+		if (retorno && jogada != 2) {
 			emMao.remove(index);
 		}
 		return retorno;
