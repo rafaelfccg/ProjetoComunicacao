@@ -4,17 +4,83 @@
  */
 package GUI;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+
 /**
  *
  * @author user
  */
 public class GameRoom extends javax.swing.JFrame {
 
-    /**
-     * Creates new form GameRoom
-     */
     public GameRoom() {
-        initComponents();
+        initComponents();                
+    }
+    
+    private void initPieces(){
+         for(int i = 0; i < 7; i++){
+            
+           int num1 = (int) (0 + Math.random()*6);
+           int num2 =(int) (0 + Math.random()*6);
+              String piece;
+              String lat = "/GUI/image/pieces/xx.jpg";
+           
+           if(num1 <= num2){
+               piece = "/GUI/image/pieces/" + num1 + "" + num2 + ".png";
+               
+           } else {
+                piece = "/GUI/image/pieces/" + num2 + "" + num1 + ".png";
+           }
+           
+           if(i == 1){
+               p1.setIcon(new javax.swing.ImageIcon(getClass().getResource(piece)));
+               a1.setIcon(new javax.swing.ImageIcon(getClass().getResource(lat)));
+               b1.setIcon(new javax.swing.ImageIcon(getClass().getResource(lat)));
+               c1.setIcon(new javax.swing.ImageIcon(getClass().getResource(lat)));
+               d1.setIcon(new javax.swing.ImageIcon(getClass().getResource(lat)));
+           } else if(i == 2){
+               p2.setIcon(new javax.swing.ImageIcon(getClass().getResource(piece)));
+               a2.setIcon(new javax.swing.ImageIcon(getClass().getResource(lat)));
+               b2.setIcon(new javax.swing.ImageIcon(getClass().getResource(lat)));
+               c2.setIcon(new javax.swing.ImageIcon(getClass().getResource(lat)));
+               d2.setIcon(new javax.swing.ImageIcon(getClass().getResource(lat)));
+           } else if(i == 3){
+               p3.setIcon(new javax.swing.ImageIcon(getClass().getResource(piece)));
+               a3.setIcon(new javax.swing.ImageIcon(getClass().getResource(lat)));
+               b3.setIcon(new javax.swing.ImageIcon(getClass().getResource(lat)));
+               c3.setIcon(new javax.swing.ImageIcon(getClass().getResource(lat)));
+               d3.setIcon(new javax.swing.ImageIcon(getClass().getResource(lat)));
+           } else if(i == 4){
+               p4.setIcon(new javax.swing.ImageIcon(getClass().getResource(piece)));
+               a4.setIcon(new javax.swing.ImageIcon(getClass().getResource(lat)));
+               b4.setIcon(new javax.swing.ImageIcon(getClass().getResource(lat)));
+               c4.setIcon(new javax.swing.ImageIcon(getClass().getResource(lat)));
+               d4.setIcon(new javax.swing.ImageIcon(getClass().getResource(lat)));
+           } else if(i == 5){
+               p5.setIcon(new javax.swing.ImageIcon(getClass().getResource(piece)));
+               a5.setIcon(new javax.swing.ImageIcon(getClass().getResource(lat)));
+               b5.setIcon(new javax.swing.ImageIcon(getClass().getResource(lat)));
+               c5.setIcon(new javax.swing.ImageIcon(getClass().getResource(lat)));
+               d5.setIcon(new javax.swing.ImageIcon(getClass().getResource(lat)));
+           } else if(i == 6){
+               p6.setIcon(new javax.swing.ImageIcon(getClass().getResource(piece)));
+               a6.setIcon(new javax.swing.ImageIcon(getClass().getResource(lat)));
+               b6.setIcon(new javax.swing.ImageIcon(getClass().getResource(lat)));
+               c6.setIcon(new javax.swing.ImageIcon(getClass().getResource(lat)));
+               d6.setIcon(new javax.swing.ImageIcon(getClass().getResource(lat)));
+           }
+        }
+    }
+    
+    private void first(){
+        
     }
 
     /**
@@ -27,30 +93,437 @@ public class GameRoom extends javax.swing.JFrame {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        jPanel1 = new javax.swing.JPanel();
+        BackgroundPanel = new javax.swing.JPanel();
+        ExitButton = new javax.swing.JButton();
+        NomeTime2 = new javax.swing.JLabel();
+        TurnBox2 = new javax.swing.JCheckBox();
+        NomeTime3 = new javax.swing.JLabel();
+        TurnBox3 = new javax.swing.JCheckBox();
+        NomeTime4 = new javax.swing.JLabel();
+        TurnBox4 = new javax.swing.JCheckBox();
+        PlacarTimes = new javax.swing.JLabel();
+        Placar = new javax.swing.JLabel();
+        PassTurnButton = new javax.swing.JButton();
+        Table = new javax.swing.JLayeredPane();
+        TableIm = new javax.swing.JLabel();
+        TimeNome1 = new javax.swing.JLabel();
+        TurnBox1 = new javax.swing.JCheckBox();
+        p1 = new javax.swing.JButton();
+        p2 = new javax.swing.JButton();
+        p3 = new javax.swing.JButton();
+        p4 = new javax.swing.JButton();
+        p5 = new javax.swing.JButton();
+        p6 = new javax.swing.JButton();
+        a1 = new javax.swing.JLabel();
+        a2 = new javax.swing.JLabel();
+        a3 = new javax.swing.JLabel();
+        a4 = new javax.swing.JLabel();
+        a5 = new javax.swing.JLabel();
+        a6 = new javax.swing.JLabel();
+        b5 = new javax.swing.JLabel();
+        b1 = new javax.swing.JLabel();
+        b2 = new javax.swing.JLabel();
+        b3 = new javax.swing.JLabel();
+        b4 = new javax.swing.JLabel();
+        b6 = new javax.swing.JLabel();
+        c5 = new javax.swing.JLabel();
+        c1 = new javax.swing.JLabel();
+        c2 = new javax.swing.JLabel();
+        c3 = new javax.swing.JLabel();
+        c4 = new javax.swing.JLabel();
+        c6 = new javax.swing.JLabel();
+        d5 = new javax.swing.JLabel();
+        d1 = new javax.swing.JLabel();
+        d2 = new javax.swing.JLabel();
+        d3 = new javax.swing.JLabel();
+        d4 = new javax.swing.JLabel();
+        d6 = new javax.swing.JLabel();
         BackgroundIm = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Domino Effect");
+        setMinimumSize(new java.awt.Dimension(800, 600));
         setResizable(false);
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        jPanel1.setOpaque(false);
+        BackgroundPanel.setMinimumSize(new java.awt.Dimension(800, 600));
+        BackgroundPanel.setOpaque(false);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        ExitButton.setText("Sair");
+        ExitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExitButtonActionPerformed(evt);
+            }
+        });
+
+        NomeTime2.setText("Jogador 3 (Time 1)");
+
+        NomeTime3.setText("Jogador 2 (Time 2)");
+
+        NomeTime4.setText("Jogador 4 (Time 2)");
+
+        TurnBox4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TurnBox4ActionPerformed(evt);
+            }
+        });
+
+        PlacarTimes.setText("Time 1   |    Time 2");
+        PlacarTimes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        Placar.setText("    0       |        0");
+        Placar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        PassTurnButton.setText("Passar Vez");
+
+        TableIm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/image/backgrounds/BackgroundTable.jpg"))); // NOI18N
+        TableIm.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                TableImMouseReleased(evt);
+            }
+        });
+        TableIm.addContainerListener(new java.awt.event.ContainerAdapter() {
+            public void componentAdded(java.awt.event.ContainerEvent evt) {
+                TableImComponentAdded(evt);
+            }
+        });
+        TableIm.setBounds(0, 0, 601, 475);
+        Table.add(TableIm, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        TimeNome1.setText("Jogador 1 (Time 1)");
+
+        p1.setMaximumSize(new java.awt.Dimension(36, 70));
+        p1.setMinimumSize(new java.awt.Dimension(36, 70));
+        p1.setPreferredSize(new java.awt.Dimension(36, 70));
+        p1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                p1MouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                p1MousePressed(evt);
+            }
+        });
+        p1.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentHidden(java.awt.event.ComponentEvent evt) {
+                p1ComponentHidden(evt);
+            }
+        });
+        p1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                p1MouseDragged(evt);
+            }
+        });
+        p1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                p1ActionPerformed(evt);
+            }
+        });
+
+        p2.setMaximumSize(new java.awt.Dimension(36, 70));
+        p2.setMinimumSize(new java.awt.Dimension(36, 70));
+        p2.setPreferredSize(new java.awt.Dimension(36, 70));
+
+        p3.setMaximumSize(new java.awt.Dimension(36, 70));
+        p3.setMinimumSize(new java.awt.Dimension(36, 70));
+        p3.setPreferredSize(new java.awt.Dimension(36, 70));
+        p3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                p3MouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                p3MousePressed(evt);
+            }
+        });
+        p3.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentHidden(java.awt.event.ComponentEvent evt) {
+                p3ComponentHidden(evt);
+            }
+        });
+        p3.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                p3MouseDragged(evt);
+            }
+        });
+        p3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                p3ActionPerformed(evt);
+            }
+        });
+
+        p4.setMaximumSize(new java.awt.Dimension(36, 70));
+        p4.setMinimumSize(new java.awt.Dimension(36, 70));
+        p4.setPreferredSize(new java.awt.Dimension(36, 70));
+
+        p5.setMaximumSize(new java.awt.Dimension(36, 70));
+        p5.setMinimumSize(new java.awt.Dimension(36, 70));
+        p5.setPreferredSize(new java.awt.Dimension(36, 70));
+        p5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                p5MouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                p5MousePressed(evt);
+            }
+        });
+        p5.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentHidden(java.awt.event.ComponentEvent evt) {
+                p5ComponentHidden(evt);
+            }
+        });
+        p5.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                p5MouseDragged(evt);
+            }
+        });
+        p5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                p5ActionPerformed(evt);
+            }
+        });
+
+        p6.setMaximumSize(new java.awt.Dimension(36, 70));
+        p6.setMinimumSize(new java.awt.Dimension(36, 70));
+        p6.setPreferredSize(new java.awt.Dimension(36, 70));
+
+        a1.setMinimumSize(new java.awt.Dimension(20, 40));
+        a1.setPreferredSize(new java.awt.Dimension(20, 40));
+
+        a2.setMinimumSize(new java.awt.Dimension(20, 40));
+        a2.setPreferredSize(new java.awt.Dimension(20, 40));
+
+        a3.setMinimumSize(new java.awt.Dimension(20, 40));
+        a3.setPreferredSize(new java.awt.Dimension(20, 40));
+
+        a4.setMinimumSize(new java.awt.Dimension(20, 40));
+        a4.setPreferredSize(new java.awt.Dimension(20, 40));
+
+        a5.setMinimumSize(new java.awt.Dimension(20, 40));
+        a5.setPreferredSize(new java.awt.Dimension(20, 40));
+
+        a6.setMinimumSize(new java.awt.Dimension(20, 40));
+        a6.setPreferredSize(new java.awt.Dimension(20, 40));
+
+        b5.setMinimumSize(new java.awt.Dimension(20, 40));
+        b5.setPreferredSize(new java.awt.Dimension(20, 40));
+
+        b1.setMinimumSize(new java.awt.Dimension(20, 40));
+        b1.setPreferredSize(new java.awt.Dimension(20, 40));
+
+        b2.setMinimumSize(new java.awt.Dimension(20, 40));
+        b2.setPreferredSize(new java.awt.Dimension(20, 40));
+
+        b3.setMinimumSize(new java.awt.Dimension(20, 40));
+        b3.setPreferredSize(new java.awt.Dimension(20, 40));
+
+        b4.setMinimumSize(new java.awt.Dimension(20, 40));
+        b4.setPreferredSize(new java.awt.Dimension(20, 40));
+
+        b6.setMinimumSize(new java.awt.Dimension(20, 40));
+        b6.setPreferredSize(new java.awt.Dimension(20, 40));
+
+        c5.setMinimumSize(new java.awt.Dimension(20, 40));
+        c5.setPreferredSize(new java.awt.Dimension(20, 40));
+
+        c1.setMinimumSize(new java.awt.Dimension(20, 40));
+        c1.setPreferredSize(new java.awt.Dimension(20, 40));
+
+        c2.setMinimumSize(new java.awt.Dimension(20, 40));
+        c2.setPreferredSize(new java.awt.Dimension(20, 40));
+
+        c3.setMinimumSize(new java.awt.Dimension(20, 40));
+        c3.setPreferredSize(new java.awt.Dimension(20, 40));
+
+        c4.setMinimumSize(new java.awt.Dimension(20, 40));
+        c4.setPreferredSize(new java.awt.Dimension(20, 40));
+
+        c6.setMinimumSize(new java.awt.Dimension(20, 40));
+        c6.setPreferredSize(new java.awt.Dimension(20, 40));
+
+        d5.setMinimumSize(new java.awt.Dimension(20, 40));
+        d5.setPreferredSize(new java.awt.Dimension(20, 40));
+
+        d1.setMinimumSize(new java.awt.Dimension(20, 40));
+        d1.setPreferredSize(new java.awt.Dimension(20, 40));
+
+        d2.setMinimumSize(new java.awt.Dimension(20, 40));
+        d2.setPreferredSize(new java.awt.Dimension(20, 40));
+
+        d3.setMinimumSize(new java.awt.Dimension(20, 40));
+        d3.setPreferredSize(new java.awt.Dimension(20, 40));
+
+        d4.setMinimumSize(new java.awt.Dimension(20, 40));
+        d4.setPreferredSize(new java.awt.Dimension(20, 40));
+
+        d6.setMinimumSize(new java.awt.Dimension(20, 40));
+        d6.setPreferredSize(new java.awt.Dimension(20, 40));
+
+        javax.swing.GroupLayout BackgroundPanelLayout = new javax.swing.GroupLayout(BackgroundPanel);
+        BackgroundPanel.setLayout(BackgroundPanelLayout);
+        BackgroundPanelLayout.setHorizontalGroup(
+            BackgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(BackgroundPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(BackgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(BackgroundPanelLayout.createSequentialGroup()
+                        .addComponent(NomeTime2)
+                        .addGap(18, 18, 18)
+                        .addComponent(TurnBox2))
+                    .addComponent(ExitButton)
+                    .addGroup(BackgroundPanelLayout.createSequentialGroup()
+                        .addComponent(NomeTime3)
+                        .addGap(18, 18, 18)
+                        .addComponent(TurnBox3))
+                    .addComponent(Placar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(BackgroundPanelLayout.createSequentialGroup()
+                        .addGroup(BackgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(NomeTime4)
+                            .addComponent(TimeNome1))
+                        .addGap(18, 18, 18)
+                        .addGroup(BackgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TurnBox1)
+                            .addComponent(TurnBox4)))
+                    .addComponent(PlacarTimes)
+                    .addGroup(BackgroundPanelLayout.createSequentialGroup()
+                        .addComponent(a1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(a2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(a4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(a3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(a6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(a5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(BackgroundPanelLayout.createSequentialGroup()
+                        .addComponent(b1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(b2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(b3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(b4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(b5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(b6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(BackgroundPanelLayout.createSequentialGroup()
+                        .addComponent(c1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(c2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(c3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(c4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(c5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(c6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(BackgroundPanelLayout.createSequentialGroup()
+                        .addComponent(d1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(d2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(d3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(d4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(d5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(d6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addGroup(BackgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Table, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 601, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BackgroundPanelLayout.createSequentialGroup()
+                        .addComponent(p1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(p2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(p3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(p4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(p5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(p6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(51, 51, 51)
+                        .addComponent(PassTurnButton)
+                        .addGap(40, 40, 40))))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        BackgroundPanelLayout.setVerticalGroup(
+            BackgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(BackgroundPanelLayout.createSequentialGroup()
+                .addGroup(BackgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Table, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(BackgroundPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addGroup(BackgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(TurnBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(NomeTime2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(BackgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(a1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(a2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(a4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(a6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(a5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(a3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(48, 48, 48)
+                        .addGroup(BackgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TurnBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(NomeTime3))
+                        .addGap(18, 18, 18)
+                        .addGroup(BackgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(b1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(b2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(b3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(b5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(b6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(b4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(43, 43, 43)
+                        .addGroup(BackgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(TurnBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(NomeTime4))
+                        .addGap(18, 18, 18)
+                        .addGroup(BackgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(c1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(c2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(c3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(c5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(c6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(c4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(32, 32, 32)
+                        .addGroup(BackgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TurnBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TimeNome1))
+                        .addGap(18, 18, 18)
+                        .addGroup(BackgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(d1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(d2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(d3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(d5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(d6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(d4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(19, 19, 19)
+                .addGroup(BackgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(BackgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(p1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(p2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(p3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(p4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(p5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(p6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(PassTurnButton)
+                    .addGroup(BackgroundPanelLayout.createSequentialGroup()
+                        .addComponent(PlacarTimes)
+                        .addGap(27, 27, 27)
+                        .addComponent(Placar)))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, new java.awt.GridBagConstraints());
-
-        BackgroundIm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/image/backgrounds/bg1.jpg"))); // NOI18N
+        getContentPane().add(BackgroundPanel, new java.awt.GridBagConstraints());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
@@ -59,6 +532,82 @@ public class GameRoom extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void TurnBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TurnBox4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TurnBox4ActionPerformed
+
+    private void ExitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitButtonActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_ExitButtonActionPerformed
+
+    private void p1ComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_p1ComponentHidden
+        
+    }//GEN-LAST:event_p1ComponentHidden
+
+    private void p1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p1MouseClicked
+        
+    }//GEN-LAST:event_p1MouseClicked
+
+    private void p1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p1MouseDragged
+     
+    }//GEN-LAST:event_p1MouseDragged
+
+    private void p1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p1MousePressed
+        
+    }//GEN-LAST:event_p1MousePressed
+
+    private void p1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_p1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_p1ActionPerformed
+
+    private void p3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p3MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_p3MouseClicked
+
+    private void p3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p3MousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_p3MousePressed
+
+    private void p3ComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_p3ComponentHidden
+        // TODO add your handling code here:
+    }//GEN-LAST:event_p3ComponentHidden
+
+    private void p3MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p3MouseDragged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_p3MouseDragged
+
+    private void p3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_p3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_p3ActionPerformed
+
+    private void p5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p5MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_p5MouseClicked
+
+    private void p5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p5MousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_p5MousePressed
+
+    private void p5ComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_p5ComponentHidden
+        // TODO add your handling code here:
+    }//GEN-LAST:event_p5ComponentHidden
+
+    private void p5MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p5MouseDragged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_p5MouseDragged
+
+    private void p5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_p5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_p5ActionPerformed
+
+    private void TableImMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableImMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TableImMouseReleased
+
+    private void TableImComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_TableImComponentAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TableImComponentAdded
 
     /**
      * @param args the command line arguments
@@ -96,6 +645,50 @@ public class GameRoom extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel BackgroundIm;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel BackgroundPanel;
+    private javax.swing.JButton ExitButton;
+    private javax.swing.JLabel NomeTime2;
+    private javax.swing.JLabel NomeTime3;
+    private javax.swing.JLabel NomeTime4;
+    private javax.swing.JButton PassTurnButton;
+    private javax.swing.JLabel Placar;
+    private javax.swing.JLabel PlacarTimes;
+    private javax.swing.JLayeredPane Table;
+    private javax.swing.JLabel TableIm;
+    private javax.swing.JLabel TimeNome1;
+    private javax.swing.JCheckBox TurnBox1;
+    private javax.swing.JCheckBox TurnBox2;
+    private javax.swing.JCheckBox TurnBox3;
+    private javax.swing.JCheckBox TurnBox4;
+    private javax.swing.JLabel a1;
+    private javax.swing.JLabel a2;
+    private javax.swing.JLabel a3;
+    private javax.swing.JLabel a4;
+    private javax.swing.JLabel a5;
+    private javax.swing.JLabel a6;
+    private javax.swing.JLabel b1;
+    private javax.swing.JLabel b2;
+    private javax.swing.JLabel b3;
+    private javax.swing.JLabel b4;
+    private javax.swing.JLabel b5;
+    private javax.swing.JLabel b6;
+    private javax.swing.JLabel c1;
+    private javax.swing.JLabel c2;
+    private javax.swing.JLabel c3;
+    private javax.swing.JLabel c4;
+    private javax.swing.JLabel c5;
+    private javax.swing.JLabel c6;
+    private javax.swing.JLabel d1;
+    private javax.swing.JLabel d2;
+    private javax.swing.JLabel d3;
+    private javax.swing.JLabel d4;
+    private javax.swing.JLabel d5;
+    private javax.swing.JLabel d6;
+    private javax.swing.JButton p1;
+    private javax.swing.JButton p2;
+    private javax.swing.JButton p3;
+    private javax.swing.JButton p4;
+    private javax.swing.JButton p5;
+    private javax.swing.JButton p6;
     // End of variables declaration//GEN-END:variables
 }

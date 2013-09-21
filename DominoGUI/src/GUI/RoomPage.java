@@ -4,8 +4,6 @@
  */
 package GUI;
 
-import javax.swing.JDialog;
-
 /**
  *
  * @author user
@@ -33,12 +31,12 @@ public class RoomPage extends javax.swing.JFrame {
         RoomsScroll = new javax.swing.JScrollPane();
         RoomsList = new javax.swing.JList();
         EnterRoomButton = new javax.swing.JButton();
-        ExitButton = new javax.swing.JButton();
         GameImage = new javax.swing.JLabel();
         RoomListTitle = new javax.swing.JLabel();
-        EnterRoom = new javax.swing.JButton();
+        ExitButton = new javax.swing.JButton();
         NewRoomButton = new javax.swing.JButton();
-        BackgroungIm = new javax.swing.JLabel();
+        EnterButton = new javax.swing.JButton();
+        BackgroundIm = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Domino Effect");
@@ -47,6 +45,7 @@ public class RoomPage extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
+        BackgroundPanel.setMinimumSize(new java.awt.Dimension(800, 600));
         BackgroundPanel.setOpaque(false);
         BackgroundPanel.setPreferredSize(new java.awt.Dimension(800, 600));
 
@@ -60,30 +59,32 @@ public class RoomPage extends javax.swing.JFrame {
         EnterRoomButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/image/button1.jpg"))); // NOI18N
         EnterRoomButton.setText("Entrar");
 
-        ExitButton.setText("Sair");
+        RoomListTitle.setFont(new java.awt.Font("Segoe Print", 1, 18)); // NOI18N
+        RoomListTitle.setForeground(java.awt.SystemColor.inactiveCaptionBorder);
+        RoomListTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        RoomListTitle.setText("Salas disponíveis");
+
+        ExitButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/image/buttons/ExitButton.jpg"))); // NOI18N
+        ExitButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/image/buttons/ExitClicked.jpg"))); // NOI18N
         ExitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ExitButtonActionPerformed(evt);
             }
         });
 
-        RoomListTitle.setFont(new java.awt.Font("Segoe Print", 1, 18)); // NOI18N
-        RoomListTitle.setForeground(java.awt.SystemColor.inactiveCaptionBorder);
-        RoomListTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        RoomListTitle.setText("Salas disponíveis");
-
-        EnterRoom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/image/enter.jpg"))); // NOI18N
-        EnterRoom.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EnterRoomActionPerformed(evt);
-            }
-        });
-
-        NewRoomButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/image/create.jpg"))); // NOI18N
-        NewRoomButton.setText("jButton1");
+        NewRoomButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/image/buttons/NewRoomButton.jpg"))); // NOI18N
+        NewRoomButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/image/buttons/NewRoomClicked.jpg"))); // NOI18N
         NewRoomButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 NewRoomButtonActionPerformed(evt);
+            }
+        });
+
+        EnterButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/image/buttons/EnterButton.jpg"))); // NOI18N
+        EnterButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/image/buttons/EnterClicked.jpg"))); // NOI18N
+        EnterButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EnterButtonActionPerformed(evt);
             }
         });
 
@@ -91,50 +92,50 @@ public class RoomPage extends javax.swing.JFrame {
         BackgroundPanel.setLayout(BackgroundPanelLayout);
         BackgroundPanelLayout.setHorizontalGroup(
             BackgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BackgroundPanelLayout.createSequentialGroup()
-                .addGap(271, 271, 271)
-                .addComponent(GameImage, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
             .addGroup(BackgroundPanelLayout.createSequentialGroup()
-                .addGap(154, 154, 154)
                 .addGroup(BackgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(BackgroundPanelLayout.createSequentialGroup()
+                        .addGap(271, 271, 271)
+                        .addComponent(GameImage, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(BackgroundPanelLayout.createSequentialGroup()
+                        .addGap(154, 154, 154)
                         .addGroup(BackgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(BackgroundPanelLayout.createSequentialGroup()
                                 .addGap(150, 150, 150)
                                 .addComponent(EnterRoomButton, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(BackgroundPanelLayout.createSequentialGroup()
-                                .addGap(87, 87, 87)
-                                .addComponent(EnterRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(52, 52, 52)
-                        .addComponent(NewRoomButton, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(RoomListTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(RoomsScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(166, Short.MAX_VALUE))
+                            .addComponent(RoomListTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(RoomsScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(BackgroundPanelLayout.createSequentialGroup()
+                .addGap(214, 214, 214)
+                .addComponent(EnterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(67, 67, 67)
+                .addComponent(NewRoomButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         BackgroundPanelLayout.setVerticalGroup(
             BackgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BackgroundPanelLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(RoomListTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(RoomsScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(BackgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(NewRoomButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, Short.MAX_VALUE)
+                    .addComponent(EnterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(102, 102, 102)
+                .addComponent(EnterRoomButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(BackgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(BackgroundPanelLayout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(RoomListTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(RoomsScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37)
-                        .addComponent(EnterRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BackgroundPanelLayout.createSequentialGroup()
-                        .addGap(0, 357, Short.MAX_VALUE)
-                        .addComponent(NewRoomButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(EnterRoomButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
-                .addGroup(BackgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(GameImage, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34))
+                        .addGap(58, 58, 58)
+                        .addComponent(GameImage, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(BackgroundPanelLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(69, 69, 69))
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -143,29 +144,30 @@ public class RoomPage extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         getContentPane().add(BackgroundPanel, gridBagConstraints);
 
-        BackgroungIm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/image/backgrounds/bbg1.jpg"))); // NOI18N
+        BackgroundIm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/image/backgrounds/BackgroundPrincipal.jpg"))); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        getContentPane().add(BackgroungIm, gridBagConstraints);
+        getContentPane().add(BackgroundIm, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void ExitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitButtonActionPerformed
-            ExitConfirmation exit = new ExitConfirmation(this, true);
-            exit.setVisible(true);
+        ExitConfirmation exit = new ExitConfirmation(this, true);
+        exit.setVisible(true);
     }//GEN-LAST:event_ExitButtonActionPerformed
 
     private void NewRoomButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewRoomButtonActionPerformed
-           
+        InfoCreate info = new InfoCreate(this, true);
+        info.setVisible(true);
     }//GEN-LAST:event_NewRoomButtonActionPerformed
 
-    private void EnterRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnterRoomActionPerformed
-         InfoUser info = new InfoUser(this, true);
-         info.setVisible(true);
-    }//GEN-LAST:event_EnterRoomActionPerformed
+    private void EnterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnterButtonActionPerformed
+        InfoEnter info = new InfoEnter(this, true);
+        info.setVisible(true);
+    }//GEN-LAST:event_EnterButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -202,9 +204,9 @@ public class RoomPage extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel BackgroundIm;
     private javax.swing.JPanel BackgroundPanel;
-    private javax.swing.JLabel BackgroungIm;
-    private javax.swing.JButton EnterRoom;
+    private javax.swing.JButton EnterButton;
     private javax.swing.JButton EnterRoomButton;
     private javax.swing.JButton ExitButton;
     private javax.swing.JLabel GameImage;
