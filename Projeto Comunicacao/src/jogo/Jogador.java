@@ -11,8 +11,10 @@ public class Jogador implements Serializable{
 	Vector<Peca> emMao;
 	private int num;
 	Jogo jogo;
+	String nome;
 	
-	public Jogador(int num){
+	public Jogador(int num, String nome){
+		this.nome = nome;
 		this.num = num;
 	}
 	public Vector<Peca> getEmMao() {
