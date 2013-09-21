@@ -26,6 +26,8 @@ public class MultiThreadChatClient implements Runnable {
 	static Jogo jogo;
 	static int portNumber;
 	static String host;
+	static Pacote pck;
+	static boolean online;
 	/*
 	 * Le toda rodada as pecas dele e as da mesa
 	 * inteiro pra vez (mod 4)
@@ -42,6 +44,7 @@ public class MultiThreadChatClient implements Runnable {
 			os.writeObject(nome);
 			os.writeInt(time);
 			aux = is.readBoolean();
+			online = true;
 			if(aux){
 				numJogador = is.readInt();
 			}else{
@@ -93,7 +96,9 @@ public class MultiThreadChatClient implements Runnable {
 	public void run(){
 		while(jogo.verify()!=2){
 			try {
-				jogo = (Jogo) is.readObject();
+				pck = (Pacote) is.readObject();
+				jogo = pck.jogo;
+				online = pck.status;
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -113,7 +118,7 @@ public class MultiThreadChatClient implements Runnable {
 		}
 		if(b){
 			try {
-				os.writeObject(jogo);
+				os.writeObject(pck);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

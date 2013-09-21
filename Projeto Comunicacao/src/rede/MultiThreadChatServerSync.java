@@ -26,7 +26,7 @@ public class MultiThreadChatServerSync {
 	private static clientThread threads;
 	private static int numClientes = 0;
 	private static ThreadSocket[] clientes = new ThreadSocket[maxClientsCount];
-
+	
 	static Jogo jogo;
 	static Jogador[] jogadores = new Jogador[4];
 	
@@ -148,13 +148,16 @@ class clientThread extends Thread {
 	private Socket clientSocket;
 	private final ThreadSocket[] clientes;
 	private final int maxClientsCount = 10;
+	static boolean online;
 	boolean comecou;
 	Jogo jogo;
+	Pacote pck;
 	Jogador[] jogadores;
 	public clientThread(ThreadSocket[] clientes, Jogo jogo) {
 		this.clientes = clientes;
 		this.jogo = jogo;
 		this.comecou = false;
+		online = true;
 	}
 	/*
 	 * Le toda rodada as pecas dele e as da mesa
@@ -163,24 +166,21 @@ class clientThread extends Thread {
 	 */
 	public void run() {
 		int maxClientsCount = this.maxClientsCount;
-		
+		pck = new Pacote(jogo,online);
 		try {	
 			int vez = jogo.getVez();
 			
 			//String mesa = jogo.getMesa().print_test();// impressao de test
 			//synchronized (this) {
-			System.out.println(vez);
-			for(int i = 0; i < 4; ++i){
-				clientes[i].os.writeInt(i);
-			}				
-			System.out.println(vez);
+			
 			while(jogo.verify() != 2){
 				jogo.save();
 				vez = jogo.getVez();
 				for (int i = 0; i < 4; ++i) {
-					clientes[i].os.writeObject(jogo);
+					clientes[i].os.writeObject(pck);
 				}
-				jogo = (Jogo) clientes[vez].is.readObject();
+				pck = (Pacote) clientes[vez].is.readObject();
+				jogo =  pck.jogo;
 				System.out.println("Li o jogo");
 				System.out.println("Vez de: "+jogo.getVez());
 			}			
