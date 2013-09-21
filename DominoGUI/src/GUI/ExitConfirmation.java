@@ -28,73 +28,76 @@ public class ExitConfirmation extends javax.swing.JDialog {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        jPanel1 = new javax.swing.JPanel();
+        BackgroundPanel = new javax.swing.JPanel();
+        ExitText = new javax.swing.JLabel();
         YesButton = new javax.swing.JButton();
         NoButton = new javax.swing.JButton();
-        ExitText = new javax.swing.JLabel();
         BackgroundIm = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Sair");
+        setTitle("");
         setAlwaysOnTop(true);
         setModal(true);
         setResizable(false);
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        jPanel1.setMinimumSize(new java.awt.Dimension(270, 188));
-        jPanel1.setOpaque(false);
+        BackgroundPanel.setMinimumSize(new java.awt.Dimension(270, 188));
+        BackgroundPanel.setOpaque(false);
 
-        YesButton.setText("Sim");
+        ExitText.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        ExitText.setForeground(java.awt.SystemColor.inactiveCaptionBorder);
+        ExitText.setText("Você tem certeza que deseja sair?");
+
+        YesButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/image/buttons/YesButton.jpg"))); // NOI18N
+        YesButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/image/buttons/YesClicked.jpg"))); // NOI18N
         YesButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 YesButtonActionPerformed(evt);
             }
         });
 
-        NoButton.setText("Não");
+        NoButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/image/buttons/NoButton.jpg"))); // NOI18N
+        NoButton.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/image/buttons/NoClicked.jpg"))); // NOI18N
         NoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 NoButtonActionPerformed(evt);
             }
         });
 
-        ExitText.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        ExitText.setForeground(java.awt.SystemColor.inactiveCaptionBorder);
-        ExitText.setText("Você tem certeza que deseja sair?");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout BackgroundPanelLayout = new javax.swing.GroupLayout(BackgroundPanel);
+        BackgroundPanel.setLayout(BackgroundPanelLayout);
+        BackgroundPanelLayout.setHorizontalGroup(
+            BackgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(BackgroundPanelLayout.createSequentialGroup()
                 .addGap(43, 43, 43)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(ExitText)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(YesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(50, 50, 50)
-                        .addComponent(NoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addComponent(ExitText)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(BackgroundPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(YesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(NoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        BackgroundPanelLayout.setVerticalGroup(
+            BackgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BackgroundPanelLayout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addComponent(ExitText, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(YesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(NoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addGroup(BackgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(YesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(NoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22))
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        getContentPane().add(jPanel1, gridBagConstraints);
+        getContentPane().add(BackgroundPanel, gridBagConstraints);
 
-        BackgroundIm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/image/backgrounds/bbg3.jpg"))); // NOI18N
+        BackgroundIm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/image/backgrounds/BackgroundExit.jpg"))); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
@@ -155,9 +158,9 @@ public class ExitConfirmation extends javax.swing.JDialog {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel BackgroundIm;
+    private javax.swing.JPanel BackgroundPanel;
     private javax.swing.JLabel ExitText;
     private javax.swing.JButton NoButton;
     private javax.swing.JButton YesButton;
-    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
