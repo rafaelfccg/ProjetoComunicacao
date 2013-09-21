@@ -24,58 +24,46 @@ public class MultiThreadChatClient implements Runnable {
 	static int numJogador;
 	static Scanner in = new Scanner(System.in);
 	static Jogo jogo;
+	static int portNumber;
+	static String host;
 	/*
 	 * Le toda rodada as pecas dele e as da mesa
 	 * inteiro pra vez (mod 4)
 	 */
-	public static void main(String[] args) {
-
-		// The default port.
-		int portNumber = 2222;
-		// The default host.
-		String host = "192.168.0.176";
-		if (args.length < 2) {
-			System.out
-			.println("Usage: java MultiThreadChatClient <host> <portNumber>\n"
-					+ "Now using host=" + host + ", portNumber=" + portNumber);
-		} else {
-			host = args[0];
-			portNumber = Integer.valueOf(args[1]).intValue();
-		}
-
-		/*
-		 * Open a socket on a given host and port. Open input and output streams.
-		 */
+	
+	public MultiThreadChatClient(String ip, String nome, int time) throws TimeCheioException{
+		this.portNumber = 2222;
+		this.host = ip;	
 		try {
 			clientSocket = new Socket(host, portNumber);
-			//inputLine = new BufferedReader(new InputStreamReader(System.in));
 			os = new ObjectOutputStream(clientSocket.getOutputStream());
-			//os.flush();
 			is = new ObjectInputStream(clientSocket.getInputStream());
-			//is.reset();
+			boolean aux = false;
+			os.writeObject(nome);
+			os.writeInt(time);
+			aux = is.readBoolean();
+			if(aux){
+				numJogador = is.readInt();
+			}else{
+				throw new TimeCheioException();
+			}
+			
 		} catch (UnknownHostException e) {
 			System.err.println("Don't know about host " + host);
 		} catch (IOException e) {
 			System.err.println("Couldn't get I/O for the connection to the host "
 					+ host);
-		}
+		}			
+	}
+	
+	public static void main(String[] args) {		
 
-		/*
-		 * If everything has been initialized then we want to write some data to the
-		 * socket we have opened a connection to on the port portNumber.
-		 */
 		if (clientSocket != null && os != null && is != null) {
 			try {
-
-				/* Create a thread to read from the server. */
-				new Thread(new MultiThreadChatClient()).start();
-				//String toServer = " ";
+				//NA GUI -> new Thread(new MultiThreadChatClient()).start();
 				while (!closed) {
-					
+					//nada
 				}
-				/*
-				 * Close the output stream, close the input stream, close the socket.
-				 */
 				os.close();
 				is.close();
 				clientSocket.close();
@@ -84,13 +72,57 @@ public class MultiThreadChatClient implements Runnable {
 			}
 		}
 	}
-
+	
+	void fecha(){
+		try {
+			os.close();
+			is.close();
+			clientSocket.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	/*
-	 * Create a thread to read from the server. (non-Javadoc)
-	 * 
-	 * @see java.lang.Runnable#run()
-	 */
-	public void run() {
+	 * Fazer um funçao só para leitura que nao tem while nela e sim na GUI. Assim gui vai saber quando atualizar.
+	 * Fazer uma funçao que  vai fazer a jogada, essa funçao vai receber parametros  o index da peça e onde jogar e retorna se a jogada foi valida
+	 * */
+	
+	//fica lendo o jogo
+	public void run(){
+		while(jogo.verify()!=2){
+			try {
+				jogo = (Jogo) is.readObject();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	
+	
+	public boolean jogar(int index , int jogada){
+		boolean b = false;	
+		if(jogo.getVez() == numJogador){
+			b = jogo.getJogador(numJogador).joga(index, jogada);
+		}
+		if(b){
+			try {
+				os.writeObject(jogo);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return b;
+		
+	}
+	/*public void run() {
 		try {
 			System.out.println("available: "+is.available());
 			numJogador = is.readInt();
@@ -126,7 +158,7 @@ public class MultiThreadChatClient implements Runnable {
 			// TODO Auto-generated catch blocks
 			e.printStackTrace();
 		}
-	}
+	}*/
 }
 
 
