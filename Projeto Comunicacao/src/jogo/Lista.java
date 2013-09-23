@@ -11,7 +11,11 @@ public class Lista implements Serializable{
 	Peca tail;
 	Peca inicio;
 	int size;
+	int index_inicio; // qnt de pecas em cima
 	
+	public int getIndex_inicio(){
+		return index_inicio;
+	}
 	public Lista() {
 		this.head = null;
 		this.tail = null;
@@ -29,6 +33,7 @@ public class Lista implements Serializable{
 			peca.prev = head;
 			this.head.next = peca;
 			this.head = peca;
+			++index_inicio;
 			++this.size;
 		}
 		else if (peca.identificador == 3) {//inserir atrás (parte inferior)

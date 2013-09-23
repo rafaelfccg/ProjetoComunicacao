@@ -15,6 +15,9 @@ public class Mesa implements Serializable{
 	public String print_test(){
 		return mesa.print_test();
 	}
+	public int getInicio_index(){
+		return mesa.getIndex_inicio();
+	}
 	boolean jogar_cima(Peca p){
 		if(mesa.inicio == null){
 			p.identificador =1;
